@@ -46,9 +46,9 @@ def get_args_parser():
     parser = argparse.ArgumentParser('Vanillanet script', add_help=False)
     parser.add_argument('--batch_size', default=128, type=int,
                         help='Per GPU batch size')
-    parser.add_argument('--epochs', default=100, type=int)
+    parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--early_stop_epochs', default=None, type=int)
-    parser.add_argument('--decay_epochs', default=30, type=int,
+    parser.add_argument('--decay_epochs', default=100, type=int,
                         help='for deep training strategy')
     parser.add_argument('--decay_linear', type=str2bool, default=True,
                         help='cos/linear for decay manner')
@@ -155,7 +155,7 @@ def get_args_parser():
     parser.add_argument('--nb_classes', default=10, type=int,
                         help='number of the classification types')
     parser.add_argument('--imagenet_default_mean_and_std', type=str2bool, default=True)
-    parser.add_argument('--data_set', default='image_folder', choices=['CIFAR100', 'IMNET', 'image_folder', 'CIFAR10'],
+    parser.add_argument('--data_set', default='CIFAR10', choices=['CIFAR100', 'IMNET', 'image_folder', 'CIFAR10'],
                         type=str, help='ImageNet dataset path')
     parser.add_argument('--output_dir', default='./weights',
                         help='path where to save, empty for no saving')
@@ -171,8 +171,8 @@ def get_args_parser():
     parser.add_argument('--auto_resume', type=str2bool, default=False)
     parser.add_argument('--save_ckpt', type=str2bool, default=True)
     parser.add_argument('--save_ckpt_freq', default=1, type=int)
-    parser.add_argument('--test_freq', default=3, type=int)
-    parser.add_argument('--test_epoch', default=6, type=int)
+    parser.add_argument('--test_freq', default=20, type=int)
+    parser.add_argument('--test_epoch', default=260, type=int)
     parser.add_argument('--save_ckpt_num', default=10, type=int)
 
     parser.add_argument('--start_epoch', default=0, type=int, metavar='N',
