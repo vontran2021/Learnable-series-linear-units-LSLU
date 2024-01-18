@@ -1,11 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-
-# All rights reserved.
-
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
-
-
 import math
 from typing import Iterable, Optional
 import torch
@@ -14,7 +6,6 @@ from timm.utils import accuracy, ModelEma
 import logging
 
 import utils
-
 
 def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
                     data_loader: Iterable, optimizer: torch.optim.Optimizer,
@@ -54,13 +45,13 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
             with torch.cuda.amp.autocast():
                 output = model(samples)
                 loss = criterion(output, targets)
-        else:  # full precision
+        else: # full precision
             output = model(samples)
             loss = criterion(output, targets)
 
         loss_value = loss.item()
 
-        if not math.isfinite(loss_value):  # this could trigger if using AMP
+        if not math.isfinite(loss_value): # this could trigger if using AMP
             logging.error("Logging: Loss is {}, stopping training".format(loss_value))
             print("Loss is {}, stopping training".format(loss_value))
             assert math.isfinite(loss_value)
@@ -79,10 +70,10 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
                         iter_model_ema.update(model)
                         for i in range(len(iter_model_ema.ema.stages)):
                             if hasattr(iter_model_ema.ema.stages[i], 'act_learn'):
-                                iter_model_ema.ema.stages[i].act_learn = model.stages[i].act_learn
+                                iter_model_ema.ema.stages[i].act_learn = model.module.stages[i].act_learn
                             if hasattr(iter_model_ema.ema, 'act_learn'):
-                                iter_model_ema.ema.act_learn = model.act_learn
-        else:  # full precision
+                                iter_model_ema.ema.act_learn = model.module.act_learn
+        else: # full precision
             loss /= update_freq
             loss.backward()
             if (data_iter_step + 1) % update_freq == 0:
@@ -142,12 +133,12 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
             if use_amp:
                 wandb_logger._wandb.log({'Rank-0 Batch Wise/train_grad_norm': grad_norm}, commit=False)
             wandb_logger._wandb.log({'Rank-0 Batch Wise/global_train_step': it})
+            
 
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print("Averaged stats:", metric_logger)
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
-
 
 @torch.no_grad()
 def evaluate(data_loader, model, device, use_amp=False, real_labels=None):
@@ -173,10 +164,10 @@ def evaluate(data_loader, model, device, use_amp=False, real_labels=None):
         else:
             output = model(images)
             loss = criterion(output, target)
-
+            
         if real_labels is not None:
             real_labels.add_result(output)
-
+    
         acc1, acc5 = accuracy(output, target, topk=(1, 5))
 
         batch_size = images.shape[0]
@@ -187,7 +178,7 @@ def evaluate(data_loader, model, device, use_amp=False, real_labels=None):
     metric_logger.synchronize_between_processes()
     print('* val Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
           .format(top1=metric_logger.acc1, top5=metric_logger.acc5, losses=metric_logger.loss))
-
+    
     if real_labels is not None:
         # real labels mode replaces topk values at the end
         acc1, acc5 = real_labels.get_accuracy(k=1), real_labels.get_accuracy(k=5)
