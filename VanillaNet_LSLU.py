@@ -205,11 +205,6 @@ class VanillaNet(nn.Module):
 
 
 @register_model
-def vanillanet_4(pretrained=True, in_22k=False, **kwargs):
-    model = VanillaNet(dims=[128 * 1, 256 * 1, 512 * 1], strides=[2, 2], **kwargs)
-    return model
-
-
 def vanillanet_5_x0_25(pretrained=True, in_22k=False, **kwargs):
     model = VanillaNet(dims=[128 * 1, 256 * 1, 512 * 1, 1024 * 1], strides=[2, 2, 2], **kwargs)  # 512, 1024, 2048, 4096
     return model
