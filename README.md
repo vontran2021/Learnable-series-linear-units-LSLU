@@ -25,6 +25,7 @@ else:
                 self.weight, None, padding=self.num_activations, groups=self.dim))        
 ```
 We introduce learnable parameters  θ and  ω to control the oscillation amplitude and slope of the activation function, given by
+
 ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/b4c63330-5edd-404d-8b30-fcc4db57601f)
 
 The parameters θ  and ω , initialized to 1 and 0, respectively, are updated based on backpropagation during training.
