@@ -63,6 +63,19 @@ if test_loss is not None:
         if args.early_stop_epochs and early_stop == 1:
             break
 ```
+
+output `learnable_params.txt`:
+
+```
+output_file_path = "learnable_params.txt"  # out_dir
+        with open(output_file_path, "a") as f:
+            f.write(f'Epoch {epoch + 1}:\n')
+            for name, param in model.named_parameters():
+                if 'alphas' in name or 'biases' in name or 'alpha' in name:
+                    f.write(f'{name}: {param.item()}\n')
+                    print(f'{name}: {param.item()}\n')
+            f.write('\n')
+```
 ## 3.Experiments
 `CIFAR-10` Classification Results:
 
@@ -81,9 +94,11 @@ Experimental results of ResNet18-LSLU and VanillaNet5-LSLU on CIFAR-100 when the
 
 `Silkworm` Classification Results:
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/6cdf2bcb-57dc-4204-9d33-25f9eeaeccb2)
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/e669f09b-b21a-4dc6-aecb-b86fca0d0b57)
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/65876916-7c59-4158-8038-0ee685a15003)
+
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/bdec3cfa-fc1a-485e-af07-00de263605df)
+
 
 ## 4.Modification Suggestions
 we recommend using LSLU judiciously based on information such as the network's structure and depth: for shallow networks like VanillaNet, LSLU can be fully substituted for the old activation functions. However, for deep networks such as ResNet, and EfficientNetV2, which inherently possess high nonlinearity, careful consideration is required when selecting the position, number of activation functions, and the values of dropout rates for LSLU usage.
@@ -92,7 +107,7 @@ we recommend using LSLU judiciously based on information such as the network's s
 This repository is built using the timm library, DeiT, BEiT, RegVGG, ConvNeXt and VanillaNet repositories.
 
 ## 6.installation
-The results are produced with torch==1.10.2+cu113 torchvision==0.11.3+cu113 timm==0.6.12. Other versions might also work.
+The results are produced with `torch==1.10.2+cu113` `torchvision==0.11.3+cu113` `timm==0.6.12`. Other versions might also work.
 Install Pytorch and, torchvision following official instructions.
 
 Install required packages:
