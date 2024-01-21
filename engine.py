@@ -134,7 +134,15 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
                 wandb_logger._wandb.log({'Rank-0 Batch Wise/train_grad_norm': grad_norm}, commit=False)
             wandb_logger._wandb.log({'Rank-0 Batch Wise/global_train_step': it})
             
-
+    output_file_path = "learnable_params.txt"  # out_dir
+        with open(output_file_path, "a") as f:
+            f.write(f'Epoch {epoch + 1}:\n')
+            for name, param in model.named_parameters():
+                if 'alphas' in name or 'biases' in name or 'alpha' in name:
+                    f.write(f'{name}: {param.item()}\n')
+                    print(f'{name}: {param.item()}\n')
+            f.write('\n')
+          
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print("Averaged stats:", metric_logger)
