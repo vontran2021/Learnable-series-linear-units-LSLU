@@ -544,6 +544,18 @@ def main(args):
         if args.early_stop_epochs and early_stop == 1:
             break
 
+        if args.output_dir and utils.is_main_process():
+        output_dir = args.output_dir
+        output_file_path = os.path.join(output_dir, f"learnable_params.txt")  
+        with open(output_file_path, "a") as f:
+            f.write(f'Epoch {epoch + 1}:\n')
+            for name, param in model.named_parameters():
+                if 'alphas' in name or 'biases' in name:
+                    values = param.tolist()
+                    f.write(f'{name}: {values}\n')
+                    print(f'learnable_params_{name}_out\n')
+            f.write('\n')
+
     if wandb_logger and args.wandb_ckpt and args.save_ckpt and args.output_dir:
         wandb_logger.log_checkpoints()
 
