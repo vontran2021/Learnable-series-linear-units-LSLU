@@ -86,7 +86,7 @@ output_file_path = "learnable_params.txt"  # out_dir
 
 ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/a16afc18-c42b-4823-bf8b-fbe5ef83f18c)
 
-Experimental results of ResNet-LSLU and VanillaNet5-LSLU on CIFAR-100 when the number of activation functions is varied. When training neural networks, the form of the activation function (slope and oscillation coefficient) should not remain constant.
+Experimental results of ResNet18-LSLU and VanillaNet5-LSLU on CIFAR-100 when the number of activation functions is varied. When training neural networks, the form of the activation function (slope and oscillation coefficient) should not remain constant.
 
 ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/8c6d5cb5-cade-4d12-8f26-4f68ca828ca3)
 
