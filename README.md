@@ -67,15 +67,19 @@ if test_loss is not None:
 output `learnable_params.txt`:
 
 ```
-output_file_path = "learnable_params.txt"  # out_dir
-        with open(output_file_path, "a") as f:
-            f.write(f'Epoch {epoch + 1}:\n')
-            for name, param in model.named_parameters():
-                if 'alphas' in name or 'biases' in name or 'alpha' in name:
-                    f.write(f'{name}: {param.item()}\n')
-                    print(f'{name}: {param.item()}\n')
-            f.write('\n')
+if args.output_dir and utils.is_main_process():
+            output_dir = args.output_dir
+            output_file_path = os.path.join(output_dir, f"learnable_params.txt")  
+            with open(output_file_path, "a") as f:
+                f.write(f'Epoch {epoch + 1}:\n')
+                for name, param in model.named_parameters():
+                    if 'alphas' in name or 'biases' in name:
+                        values = param.tolist()
+                        f.write(f'{name}: {values}\n')
+                        print(f'learnable_params_{name}_out\n')
+                f.write('\n')
 ```
+
 ## 3.Experiments
 `CIFAR-10` Classification Results:
 
