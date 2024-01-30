@@ -82,22 +82,23 @@ output_file_path = "learnable_params.txt"  # out_dir
 ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/5d036d3a-3ed3-4b5b-8b9d-b12d4f2871e4)
 
 
-`CIFAR-100` Classification Results:
+`CIFAR-100` Classification Results: experimental results of ResNet-LSLU and VanillaNet-LSLU on CIFAR-100 when the number of activation functions is varied.
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/6dbfcd14-7057-4e33-83f9-14d1c892349e) ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/82a1017e-33a7-48af-9ac8-08ca1a1ad2a0)
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/a16afc18-c42b-4823-bf8b-fbe5ef83f18c)
 
+Experimental results of ResNet-LSLU and VanillaNet5-LSLU on CIFAR-100 when the number of activation functions is varied. When training neural networks, the form of the activation function (slope and oscillation coefficient) should not remain constant.
 
-Experimental results of ResNet18-LSLU and VanillaNet5-LSLU on CIFAR-100 when the number of activation functions is varied.
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/8c6d5cb5-cade-4d12-8f26-4f68ca828ca3)
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/76afa2de-8a67-4196-bf99-ddbe359456f1)
+The impact of `regularization` strength.
+
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/2931310f-24aa-4bee-a019-672a14816a41)
 
 
 `Silkworm` Classification Results:
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/e669f09b-b21a-4dc6-aecb-b86fca0d0b57)
+![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/fa51b029-f27f-44cb-bd17-9ef02f448198)
 
-
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/bdec3cfa-fc1a-485e-af07-00de263605df)
 
 
 ## 4.Modification Suggestions
