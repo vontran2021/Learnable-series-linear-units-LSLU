@@ -26,18 +26,20 @@ else:
 ```
 We introduce learnable parameters  θ and  ω to control the oscillation amplitude and slope of the activation function, given by
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/b4c63330-5edd-404d-8b30-fcc4db57601f)
+![1721205649300](https://github.com/user-attachments/assets/bebcb6b9-4b66-4c5f-b822-01f886d0ce1c)
 
-The parameters θ  and ω , initialized to 1 and 0, respectively, are updated based on backpropagation during training.
+The parameters θ  and ω , initialized to 1 and 0, n denotes the number of activation functions. Respectively, are updated based on backpropagation during training.
+
 ![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/7d9ba6f4-6655-46b5-9a9d-810e0c2a1c65)
 
 the weight matrix is further adjusted based on the parameter θ .
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/73183f03-7460-4273-adc0-43d63a69433a)
+![image](https://github.com/user-attachments/assets/a4a06d92-e8b3-4d18-969b-4d2c240727d9)
 
 Changes in LSLU：
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/65517ba5-9eb8-4b15-b4a5-6605728e5a21)
+![LSLU应用](https://github.com/user-attachments/assets/c39389d1-e3ab-429a-9055-ed8510ffa8ef)
+
 
 The detailed code can be found in `LSLU.py`.
 The usage `example` of LSLU:
@@ -111,7 +113,7 @@ we recommend using LSLU judiciously based on information such as the network's s
 ## 5.Acknowledgement
 This repository is built using the timm library, DeiT, BEiT, RegVGG, ConvNeXt and VanillaNet repositories.
 
-## 6.installation
+## 6.Installation
 The results are produced with `torch==1.10.2+cu113` `torchvision==0.11.3+cu113` `timm==0.6.12`. Other versions might also work.
 Install Pytorch and, torchvision following official instructions.
 
@@ -124,3 +126,32 @@ pip install einops
 pip install tensorboardX
 pip install terminaltables
 ```
+
+## 7.testing
+We give an example evaluation command for VanillaNet-5:
+```
+python -m torch.distributed.launch --nproc_per_node=1 main.py --model vanillanet_5 --data_path /path/to/dataset/ --finetune /path/to/vanillanet_5.pth --eval True --model_key model_ema --crop_pct 0.875
+```
+with deploy:
+```
+python -m torch.distributed.launch --nproc_per_node=1 main.py --model vanillanet_5 --data_path /path/to/dataset/ --finetune /path/to/vanillanet_5.pth --eval True --model_key model_ema --crop_pct 0.875 --switch_to_deploy /path/to/vanillanet_5_deploy.pth
+```
+
+## 8.Training
+You can use the following command to train VanillaNet-5 on a single machine with 2 GPUs:
+```
+python -m torch.distributed.launch --nproc_per_node=2 main.py \
+--model vanillanet_5 \
+--data_path /path/to/imagenet-1k \
+--batch_size 400 --update_freq 1  --epochs 300 --decay_epochs 100 \ 
+--lr 3.5e-3 --weight_decay 0.35  --drop 0.05 \
+--opt lamb --aa rand-m7-mstd0.5-inc1 --mixup 0.1 --bce_loss \
+--output_dir /path/to/save_results \
+--model_ema true --model_ema_eval true --model_ema_decay 0.99996 \
+--use_amp true
+```
+Here, the effective batch size = `--nproc_per_node` * `--batch_size` * `--update_freq`. In the example above, the effective batch size is `2*400*1 = 800`.
+
+
+
+
