@@ -142,7 +142,7 @@ You can use the following command to train VanillaNet-5 on a single machine with
 ```
 python -m torch.distributed.launch --nproc_per_node=2 main.py \
 --model vanillanet_5 \
---data_path /path/to/imagenet-1k \
+--data_path /path/to/dataset \
 --batch_size 400 --update_freq 1  --epochs 300 --decay_epochs 100 \ 
 --lr 3.5e-3 --weight_decay 0.35  --drop 0.05 \
 --opt lamb --aa rand-m7-mstd0.5-inc1 --mixup 0.1 --bce_loss \
