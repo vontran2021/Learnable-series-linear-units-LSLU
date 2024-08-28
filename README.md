@@ -153,6 +153,15 @@ python -m torch.distributed.launch --nproc_per_node=2 main.py \
 ```
 Here, the effective batch size = `--nproc_per_node` * `--batch_size` * `--update_freq`. In the example above, the effective batch size is `2*400*1 = 800`.
 
-
+## 9.Citation
+If you find this useful in your research, please consider citing:
+```
+@article{feng2024lslu,
+  title={Activation function optimization method: Learnable series linear units (LSLUs)},
+  author={Chuan Feng, Xi Lin, Shiping Zhu, Hongkang Shi, Maojie Tang, Hua Huang},
+  journal={arXiv preprint arXiv:},
+  year={2024}
+}
+```
 
 
