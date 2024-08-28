@@ -103,7 +103,8 @@ The impact of `regularization` strength.
 
 `Silkworm` Classification Results:
 
-![image](https://github.com/vontran2021/Learnable-series-linear-units-LSLU/assets/97432746/fa51b029-f27f-44cb-bd17-9ef02f448198)
+![image](https://github.com/user-attachments/assets/5eb59e40-fd04-4ffc-9ace-3eb20f208f93)
+
 
 
 
