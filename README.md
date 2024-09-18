@@ -159,7 +159,7 @@ If you find this useful in your research, please consider citing:
 @article{feng2024lslu,
   title={Activation function optimization method: Learnable series linear units (LSLUs)},
   author={Chuan Feng, Xi Lin, Shiping Zhu, Hongkang Shi, Maojie Tang, Hua Huang},
-  journal={arXiv preprint arXiv:},
+  journal={arXiv preprint arXiv:2409.08283},
   year={2024}
 }
 ```
